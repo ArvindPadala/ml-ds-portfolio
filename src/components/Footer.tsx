@@ -15,10 +15,10 @@ const Footer: React.FC = () => {
   ];
 
   const socialLinks = [
-    { icon: Github, href: 'https://github.com', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
-    { icon: Mail, href: 'mailto:your.email@example.com', label: 'Email' },
+    { icon: Github, href: 'https://github.com/ArvindPadala', label: 'GitHub' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/arvindcharypadala/', label: 'LinkedIn' },
+    { icon: Twitter, href: 'https://x.com/Avvi_114', label: 'Twitter' },
+    { icon: Mail, href: 'mailto:padalaarvindchary@gmail.com', label: 'Email' },
   ];
 
   return (
@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <h3 className="text-2xl font-bold gradient-text">ML/DS Portfolio</h3>
+            <h3 className="text-2xl font-bold gradient-text">Arvind Padala's Portfolio</h3>
             <p className="text-secondary-700 dark:text-secondary-300 leading-relaxed">
               Machine Learning Engineer & Data Scientist passionate about building intelligent solutions 
               that solve real-world problems.
@@ -97,9 +97,9 @@ const Footer: React.FC = () => {
           >
             <h4 className="text-lg font-semibold text-secondary-900 dark:text-white">Get In Touch</h4>
             <div className="space-y-2 text-secondary-700 dark:text-secondary-300">
-              <p>📍 San Francisco, CA</p>
-              <p>📧 your.email@example.com</p>
-              <p>📱 +1 (555) 123-4567</p>
+              <p>📍 New Jersey, NJ</p>
+              <p>📧 padalaarvindchary@gmail.com</p>
+              <p>📱 +1 (848) 668-3934</p>
             </div>
             <div className="pt-4">
               <p className="text-sm text-secondary-600 dark:text-secondary-400">
@@ -119,7 +119,7 @@ const Footer: React.FC = () => {
         >
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-secondary-400 text-sm">
-              © {currentYear} ML/DS Portfolio. All rights reserved.
+              © {currentYear} Avvi's  Portfolio. All rights reserved.
             </p>
             <div className="flex items-center space-x-2 text-secondary-400 text-sm">
               <span>Made with</span>

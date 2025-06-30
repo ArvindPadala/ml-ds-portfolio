@@ -51,20 +51,20 @@ const Contact: React.FC = () => {
     {
       icon: Mail,
       title: 'Email',
-      value: 'your.email@example.com',
-      link: 'mailto:your.email@example.com'
+      value: 'padalaarvindchary@gmail.com',
+      link: 'mailto:padalaarvindchary@gmail.com'
     },
     {
       icon: Phone,
       title: 'Phone',
-      value: '+1 (555) 123-4567',
-      link: 'tel:+15551234567'
+      value: '+1 (848) 668-3934',
+      link: 'tel:+18486683934'
     },
     {
       icon: MapPin,
       title: 'Location',
-      value: 'San Francisco, CA',
-      link: '#'
+      value: 'New Jersey, NJ',
+      link: 'https://maps.app.goo.gl/LkE97gyP3iy5gZgZ7'
     }
   ];
 
@@ -72,19 +72,19 @@ const Contact: React.FC = () => {
     {
       icon: Github,
       name: 'GitHub',
-      url: 'https://github.com',
+      url: 'https://github.com/ArvindPadala',
       color: 'hover:text-gray-800'
     },
     {
       icon: Linkedin,
       name: 'LinkedIn',
-      url: 'https://linkedin.com',
+      url: 'https://www.linkedin.com/in/arvindcharypadala/',
       color: 'hover:text-blue-600'
     },
     {
       icon: Twitter,
       name: 'Twitter',
-      url: 'https://twitter.com',
+      url: 'https://x.com/Avvi_114',
       color: 'hover:text-blue-400'
     }
   ];

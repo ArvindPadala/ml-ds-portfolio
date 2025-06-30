@@ -28,9 +28,9 @@ const DataParticleBurst = ({ trigger }: { trigger: boolean }) => {
 const About: React.FC = () => {
   const stats = [
     { label: 'Years Experience', value: 3, suffix: '+' },
-    { label: 'Projects Completed', value: 25, suffix: '+' },
-    { label: 'Technologies', value: 15, suffix: '+' },
-    { label: 'Research Papers', value: 5, suffix: '+' },
+    { label: 'Projects Completed', value: 20, suffix: '+' },
+    { label: 'Technologies', value: 10, suffix: '+' },
+    { label: 'Research Papers & Articles', value: 5, suffix: '+' },
   ];
 
   // Track if section is in view for burst
@@ -133,7 +133,7 @@ const About: React.FC = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <MapPin size={20} className="text-primary-600" />
-                <span className="text-secondary-700 dark:text-white">San Francisco, CA</span>
+                <span className="text-secondary-700 dark:text-white">New Jersey, NJ</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Calendar size={20} className="text-primary-600" />
@@ -141,7 +141,7 @@ const About: React.FC = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <GraduationCap size={20} className="text-primary-600" />
-                <span className="text-secondary-700 dark:text-white">MS in Computer Science, Stanford University</span>
+                <span className="text-secondary-700 dark:text-white">MS in Statistics - Data Science, Rutgers University</span>
               </div>
             </div>
 
