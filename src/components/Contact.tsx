@@ -144,7 +144,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="section-padding bg-white relative overflow-hidden">
+    <section id="contact" className="section-padding relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div

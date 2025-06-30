@@ -468,7 +468,7 @@ const Blog: React.FC = () => {
   };
 
   return (
-    <section id="blog" className="section-padding bg-secondary-50 relative overflow-hidden">
+    <section id="blog" className="section-padding relative overflow-hidden">
       {/* ML/DS Specific 3D Animations */}
       <NeuralNetworkAnimation />
       <FloatingFormulas />

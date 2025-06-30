@@ -266,7 +266,7 @@ const Projects: React.FC = () => {
   };
 
   return (
-    <section id="projects" className="section-padding bg-white relative overflow-hidden">
+    <section id="projects" className="section-padding relative overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div

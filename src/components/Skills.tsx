@@ -166,7 +166,7 @@ const Skills: React.FC = () => {
   const currentCategory = skillCategories.find(cat => cat.id === activeCategory) || skillCategories[0];
 
   return (
-    <section id="skills" className="section-padding bg-white relative overflow-hidden">
+    <section id="skills" className="section-padding relative overflow-hidden">
       {/* ML/DS Specific Background Animations */}
       <FloatingSkillIcons />
 

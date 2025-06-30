@@ -165,7 +165,10 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-secondary-50 via-white to-primary-50">
+    <section
+      id="home"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-secondary-50 via-white to-primary-50 dark:from-secondary-900 dark:via-primary-900 dark:to-accent-900"
+    >
       {/* ML/DS Specific Background Animations */}
       <FloatingDataPoints />
       <GradientDescentAnimation />
