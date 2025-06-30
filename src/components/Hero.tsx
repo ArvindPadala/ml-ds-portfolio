@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ArrowDown, Download, Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { ArrowDown, Download, Github, Linkedin, Twitter, Mail, BookOpen } from 'lucide-react';
 
 const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -188,7 +188,7 @@ const Hero: React.FC = () => {
               className="mb-6"
             >
               <span className="inline-block px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-medium mb-4">
-                Machine Learning & Data Science
+                Here's what I do
               </span>
             </motion.div>
 
@@ -248,7 +248,7 @@ const Hero: React.FC = () => {
               className="flex justify-center lg:justify-start gap-6"
             >
               <motion.a
-                href="#"
+                href="https://github.com/ArvindPadala"
                 whileHover={{ 
                   scale: 1.2,
                   rotateY: 15,
@@ -261,7 +261,7 @@ const Hero: React.FC = () => {
                 <Github size={20} />
               </motion.a>
               <motion.a
-                href="#"
+                href="https://www.linkedin.com/in/arvindcharypadala/"
                 whileHover={{ 
                   scale: 1.2,
                   rotateY: 15,
@@ -274,7 +274,7 @@ const Hero: React.FC = () => {
                 <Linkedin size={20} />
               </motion.a>
               <motion.a
-                href="#"
+                href="https://medium.com/@padalaarvindchary1"
                 whileHover={{ 
                   scale: 1.2,
                   rotateY: 15,
@@ -284,10 +284,10 @@ const Hero: React.FC = () => {
                 className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center text-primary-600 hover:bg-primary-200 transition-colors duration-200"
                 style={{ transformStyle: "preserve-3d" }}
               >
-                <Twitter size={20} />
+                <BookOpen size={20} />
               </motion.a>
               <motion.a
-                href="#"
+                href="mailto:padalaarvindchary@gmail.com"
                 whileHover={{ 
                   scale: 1.2,
                   rotateY: 15,
@@ -403,15 +403,15 @@ const Hero: React.FC = () => {
                   >
                     <div className="flex justify-between items-center">
                       <span className="text-sm opacity-80">Experience</span>
-                      <span className="text-lg font-bold">5+ Years</span>
+                      <span className="text-lg font-bold">3+ Years</span>
                     </div>
                     <div className="flex justify-between items-center mt-2">
                       <span className="text-sm opacity-80">Projects</span>
-                      <span className="text-lg font-bold">25+</span>
+                      <span className="text-lg font-bold">15+</span>
                     </div>
                     <div className="flex justify-between items-center mt-2">
                       <span className="text-sm opacity-80">Technologies</span>
-                      <span className="text-lg font-bold">15+</span>
+                      <span className="text-lg font-bold">1+</span>
                     </div>
                   </motion.div>
                 </div>
