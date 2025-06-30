@@ -1,6 +1,37 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, Briefcase, GraduationCap } from 'lucide-react';
+import AnimatedNumber from './AnimatedNumber';
+
+// Micro-animation: Data Particle Burst
+const DataParticleBurst = ({ trigger }: { trigger: boolean }) => {
+  const particles = Array.from({ length: 18 }, (_, i) => i);
+  return (
+    <div className="pointer-events-none absolute inset-0 z-20">
+      {particles.map((p) => (
+        <motion.div
+          key={p}
+          className="absolute w-2 h-2 bg-gradient-to-r from-primary-400 to-accent-400 rounded-full"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={trigger ? { opacity: [0, 1, 0], scale: [0.5, 1.5, 0.5], y: [-20, 0, 20] } : { opacity: 0 }}
+          transition={{ duration: 1.2, delay: p * 0.04, ease: 'easeInOut' }}
+        />
+      ))}
+    </div>
+  );
+};
+
+// Helper to render periods with animated years
+function renderPeriodWithAnimation(period: string) {
+  const parts = period.split(/(\d{4})/);
+  return parts.map((part, i) =>
+    /^\d{4}$/.test(part) ? <AnimatedNumber key={i} value={parseInt(part)} /> : part
+  );
+}
 
 const Experience: React.FC = () => {
   const workExperience = [
@@ -87,8 +118,25 @@ const Experience: React.FC = () => {
     }
   ];
 
+  // Track if section is in view for burst
+  const [inView, setInView] = React.useState(false);
+  const sectionRef = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.8 && rect.bottom > 0) {
+        setInView(true);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <section id="experience" className="section-padding">
+    <section id="experience" className="section-padding relative" ref={sectionRef}>
+      <DataParticleBurst trigger={inView} />
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -134,7 +182,7 @@ const Experience: React.FC = () => {
                       <p className="text-lg text-primary-600 font-medium">{job.company}</p>
                     </div>
                     <span className="text-sm text-secondary-500 bg-secondary-100 px-3 py-1 rounded-full">
-                      {job.period}
+                      {renderPeriodWithAnimation(job.period)}
                     </span>
                   </div>
 
@@ -207,7 +255,7 @@ const Experience: React.FC = () => {
                         <p className="text-primary-600 font-medium">{edu.school}</p>
                       </div>
                       <span className="text-sm text-secondary-500 bg-secondary-100 px-3 py-1 rounded-full">
-                        {edu.period}
+                        {renderPeriodWithAnimation(edu.period)}
                       </span>
                     </div>
 
@@ -218,7 +266,7 @@ const Experience: React.FC = () => {
                       </div>
                       <div className="flex items-center space-x-2">
                         <Calendar size={16} />
-                        <span>GPA: {edu.gpa}</span>
+                        <span>GPA: <AnimatedNumber value={parseFloat(edu.gpa.split('/')[0])} duration={1.5} />/4.0</span>
                       </div>
                       <p><strong>Focus:</strong> {edu.focus}</p>
                       <p><strong>Thesis:</strong> {edu.thesis}</p>
@@ -248,7 +296,7 @@ const Experience: React.FC = () => {
                         <p className="text-sm text-secondary-600">Credential: {cert.credential}</p>
                       </div>
                       <span className="text-sm text-secondary-500 bg-accent-100 px-3 py-1 rounded-full">
-                        {cert.date}
+                        <AnimatedNumber value={parseInt(cert.date)} />
                       </span>
                     </div>
                   </motion.div>

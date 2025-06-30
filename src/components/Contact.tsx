@@ -2,6 +2,28 @@ import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
 
+// Micro-animation: Data Particle Burst
+const DataParticleBurst = ({ trigger }: { trigger: boolean }) => {
+  const particles = Array.from({ length: 18 }, (_, i) => i);
+  return (
+    <div className="pointer-events-none absolute inset-0 z-20">
+      {particles.map((p) => (
+        <motion.div
+          key={p}
+          className="absolute w-2 h-2 bg-gradient-to-r from-primary-400 to-accent-400 rounded-full"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={trigger ? { opacity: [0, 1, 0], scale: [0.5, 1.5, 0.5], y: [-20, 0, 20] } : { opacity: 0 }}
+          transition={{ duration: 1.2, delay: p * 0.04, ease: 'easeInOut' }}
+        />
+      ))}
+    </div>
+  );
+};
+
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -143,8 +165,25 @@ const Contact: React.FC = () => {
     );
   };
 
+  // Track if section is in view for burst
+  const [inView, setInView] = React.useState(false);
+  const sectionRef = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.8 && rect.bottom > 0) {
+        setInView(true);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <section id="contact" className="section-padding relative overflow-hidden">
+    <section id="contact" className="section-padding relative overflow-hidden" ref={sectionRef}>
+      <DataParticleBurst trigger={inView} />
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div

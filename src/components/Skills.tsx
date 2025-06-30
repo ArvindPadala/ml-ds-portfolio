@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Brain, Code, Database, BarChart3, Cpu, Zap, Globe, Shield, Layers, Target } from 'lucide-react';
+import AnimatedNumber from './AnimatedNumber';
 
 const Skills: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -17,15 +18,16 @@ const Skills: React.FC = () => {
     ];
 
     return (
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-auto">
         {icons.map((iconData, index) => (
           <motion.div
             key={index}
-            className={`absolute w-12 h-12 bg-gradient-to-r ${iconData.color} rounded-xl flex items-center justify-center text-white shadow-lg`}
-            style={{ 
+            className={`absolute w-12 h-12 bg-gradient-to-r ${iconData.color} rounded-xl flex items-center justify-center text-white shadow-lg cursor-pointer`}
+            style={{
+              boxShadow: 'none',
               left: `${10 + (index * 15) % 80}%`,
               top: `${20 + (index * 10) % 60}%`,
-              transformStyle: "preserve-3d" 
+              transformStyle: "preserve-3d"
             }}
             animate={{
               y: [0, -20, 0],
@@ -39,6 +41,11 @@ const Skills: React.FC = () => {
               delay: index * 0.8,
               ease: "easeInOut"
             }}
+            whileHover={{
+              scale: 1.22,
+              boxShadow: "0 0 16px 4px #e879f9, 0 0 32px 8px #60a5fa"
+            }}
+            whileTap={{ scale: 0.95 }}
           >
             <iconData.icon size={20} />
           </motion.div>
@@ -59,7 +66,7 @@ const Skills: React.FC = () => {
       >
         <div className="flex justify-between items-center mb-2">
           <span className="text-secondary-700 font-medium">{label}</span>
-          <span className="text-sm text-secondary-500">{percentage}%</span>
+          <span className="text-sm text-secondary-500"><AnimatedNumber value={percentage} />%</span>
         </div>
         <div className="relative h-3 bg-secondary-200 rounded-full overflow-hidden">
           {/* Neural Network Nodes */}

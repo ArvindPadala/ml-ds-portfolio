@@ -1,17 +1,57 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { User, MapPin, Calendar, GraduationCap } from 'lucide-react';
+import AnimatedNumber from './AnimatedNumber';
+
+// Micro-animation: Data Particle Burst
+const DataParticleBurst = ({ trigger }: { trigger: boolean }) => {
+  const particles = Array.from({ length: 18 }, (_, i) => i);
+  return (
+    <div className="pointer-events-none absolute inset-0 z-20">
+      {particles.map((p) => (
+        <motion.div
+          key={p}
+          className="absolute w-2 h-2 bg-gradient-to-r from-primary-400 to-accent-400 rounded-full"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={trigger ? { opacity: [0, 1, 0], scale: [0.5, 1.5, 0.5], y: [-20, 0, 20] } : { opacity: 0 }}
+          transition={{ duration: 1.2, delay: p * 0.04, ease: 'easeInOut' }}
+        />
+      ))}
+    </div>
+  );
+};
 
 const About: React.FC = () => {
   const stats = [
-    { label: 'Years Experience', value: '3+' },
-    { label: 'Projects Completed', value: '25+' },
-    { label: 'Technologies', value: '15+' },
-    { label: 'Research Papers', value: '5+' },
+    { label: 'Years Experience', value: 3, suffix: '+' },
+    { label: 'Projects Completed', value: 25, suffix: '+' },
+    { label: 'Technologies', value: 15, suffix: '+' },
+    { label: 'Research Papers', value: 5, suffix: '+' },
   ];
 
+  // Track if section is in view for burst
+  const [inView, setInView] = React.useState(false);
+  const sectionRef = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.8 && rect.bottom > 0) {
+        setInView(true);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <section id="about" className="section-padding">
+    <section id="about" className="section-padding relative" ref={sectionRef}>
+      <DataParticleBurst trigger={inView} />
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -56,7 +96,9 @@ const About: React.FC = () => {
                   viewport={{ once: true }}
                   className="text-center"
                 >
-                  <div className="text-3xl font-bold gradient-text">{stat.value}</div>
+                  <div className="text-3xl font-bold gradient-text">
+                    <AnimatedNumber value={stat.value} />{stat.suffix}
+                  </div>
                   <div className="text-secondary-600">{stat.label}</div>
                 </motion.div>
               ))}

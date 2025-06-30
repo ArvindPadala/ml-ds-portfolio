@@ -49,9 +49,14 @@ const Footer: React.FC = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileHover={{ 
+                    scale: 1.18, 
+                    y: -4, 
+                    boxShadow: "0 0 16px 4px #e879f9, 0 0 32px 8px #60a5fa"
+                  }}
                   className="p-2 bg-secondary-800 rounded-lg text-secondary-300 hover:text-white hover:bg-secondary-700 transition-all duration-200"
                   aria-label={social.label}
+                  style={{ boxShadow: 'none' }}
                 >
                   <social.icon size={20} />
                 </motion.a>
@@ -118,7 +123,20 @@ const Footer: React.FC = () => {
             </p>
             <div className="flex items-center space-x-2 text-secondary-400 text-sm">
               <span>Made with</span>
-              <Heart size={16} className="text-red-500 animate-pulse" />
+              <motion.span
+                animate={{
+                  scale: [1, 1.25, 0.9, 1.15, 1],
+                }}
+                transition={{
+                  duration: 2.2,
+                  repeat: Infinity,
+                  ease: [0.42, 0, 0.58, 1],
+                  times: [0, 0.2, 0.5, 0.8, 1]
+                }}
+                style={{ display: 'inline-block' }}
+              >
+                <Heart size={16} className="text-red-500" />
+              </motion.span>
               <span>using React & TypeScript</span>
             </div>
           </div>

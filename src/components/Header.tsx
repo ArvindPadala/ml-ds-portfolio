@@ -49,24 +49,35 @@ const Header: React.FC = () => {
               <motion.a
                 key={item.name}
                 href={item.href}
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ 
+                  scale: 1.12,
+                  boxShadow: "0 0 12px 2px #60a5fa, 0 0 24px 4px #e879f9"
+                }}
+                whileTap={{ scale: 0.97 }}
                 className="text-secondary-700 dark:text-secondary-100 hover:text-primary-600 dark:hover:text-accent-400 font-medium transition-colors duration-200"
+                style={{ boxShadow: 'none' }}
               >
                 {item.name}
               </motion.a>
             ))}
             {/* Theme Toggle Button */}
-            <button
+            <motion.button
               onClick={toggleTheme}
+              whileHover={{
+                scale: 1.18,
+                boxShadow: "0 0 16px 4px #e879f9, 0 0 32px 8px #60a5fa"
+              }}
+              whileTap={{ scale: 0.95 }}
               className="ml-4 p-2 rounded-full bg-secondary-100 dark:bg-secondary-800 hover:bg-primary-100 dark:hover:bg-accent-700 transition-colors duration-200 flex items-center justify-center"
               aria-label="Toggle dark mode"
+              style={{ boxShadow: 'none' }}
             >
               {theme === 'dark' ? (
                 <Sun size={20} className="text-yellow-300" />
               ) : (
                 <Moon size={20} className="text-primary-600" />
               )}
-            </button>
+            </motion.button>
           </nav>
 
           {/* Mobile Menu Button */}
