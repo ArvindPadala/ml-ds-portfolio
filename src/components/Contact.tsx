@@ -199,7 +199,7 @@ const Contact: React.FC = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold gradient-text mb-4">Get In Touch</h2>
-          <p className="text-lg text-secondary-600 max-w-2xl mx-auto">
+          <p className="text-lg text-secondary-600 max-w-2xl mx-auto dark:text-white">
             I'm always interested in new opportunities and collaborations. Let's discuss how we can work together!
           </p>
         </motion.div>
@@ -213,11 +213,11 @@ const Contact: React.FC = () => {
             viewport={{ once: true }}
             style={{ transformStyle: "preserve-3d" }}
           >
-            <h3 className="text-2xl font-bold text-secondary-900 mb-6">Send a Message</h3>
+            <h3 className="text-2xl font-bold text-secondary-900 mb-6 dark:text-white">Send a Message</h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-secondary-700 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-secondary-700 mb-2 dark:text-white">
                     Name
                   </label>
                   <AnimatedInput
@@ -230,7 +230,7 @@ const Contact: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-secondary-700 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-secondary-700 mb-2 dark:text-white">
                     Email
                   </label>
                   <AnimatedInput
@@ -245,7 +245,7 @@ const Contact: React.FC = () => {
               </div>
 
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-secondary-700 mb-2">
+                <label htmlFor="subject" className="block text-sm font-medium text-secondary-700 mb-2 dark:text-white">
                   Subject
                 </label>
                 <AnimatedInput
@@ -259,7 +259,7 @@ const Contact: React.FC = () => {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-secondary-700 mb-2">
+                <label htmlFor="message" className="block text-sm font-medium text-secondary-700 mb-2 dark:text-white">
                   Message
                 </label>
                 <AnimatedInput
@@ -306,7 +306,7 @@ const Contact: React.FC = () => {
             style={{ transformStyle: "preserve-3d" }}
           >
             <div>
-              <h3 className="text-2xl font-bold text-secondary-900 mb-6">Contact Information</h3>
+              <h3 className="text-2xl font-bold text-secondary-900 mb-6 dark:text-white">Contact Information</h3>
               <div className="space-y-6">
                 {contactInfo.map((info, index) => (
                   <motion.a
@@ -346,7 +346,7 @@ const Contact: React.FC = () => {
 
             {/* Social Links with 3D effects */}
             <div>
-              <h3 className="text-2xl font-bold text-secondary-900 mb-6">Follow Me</h3>
+              <h3 className="text-2xl font-bold text-secondary-900 mb-6 dark:text-white">Follow Me</h3>
               <div className="flex space-x-4">
                 {socialLinks.map((social, index) => (
                   <motion.a

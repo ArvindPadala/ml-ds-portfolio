@@ -21,7 +21,7 @@ const About: React.FC = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold gradient-text mb-4">About Me</h2>
-          <p className="text-lg text-secondary-600 max-w-2xl mx-auto">
+          <p className="text-lg text-secondary-600 dark:text-white max-w-2xl mx-auto">
             A passionate machine learning engineer with expertise in building scalable AI solutions
           </p>
         </motion.div>
@@ -71,17 +71,17 @@ const About: React.FC = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <h3 className="text-2xl font-bold text-secondary-900">
+            <h3 className="text-2xl font-bold text-secondary-900 dark:text-white">
               Transforming Data into Intelligent Solutions
             </h3>
             
-            <p className="text-secondary-600 leading-relaxed">
+            <p className="text-secondary-600 dark:text-white leading-relaxed">
               I'm a machine learning engineer with a passion for creating intelligent systems that solve real-world problems. 
               With expertise in deep learning, computer vision, and predictive analytics, I've successfully delivered 
               projects that have improved business outcomes and user experiences.
             </p>
 
-            <p className="text-secondary-600 leading-relaxed">
+            <p className="text-secondary-600 dark:text-white leading-relaxed">
               My journey in AI/ML began during my graduate studies, where I focused on computer vision and natural 
               language processing. Since then, I've worked on diverse projects ranging from recommendation systems 
               to autonomous vehicle perception systems.
@@ -91,21 +91,21 @@ const About: React.FC = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <MapPin size={20} className="text-primary-600" />
-                <span className="text-secondary-700">San Francisco, CA</span>
+                <span className="text-secondary-700 dark:text-white">San Francisco, CA</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Calendar size={20} className="text-primary-600" />
-                <span className="text-secondary-700">Available for new opportunities</span>
+                <span className="text-secondary-700 dark:text-white">Available for new opportunities</span>
               </div>
               <div className="flex items-center space-x-3">
                 <GraduationCap size={20} className="text-primary-600" />
-                <span className="text-secondary-700">MS in Computer Science, Stanford University</span>
+                <span className="text-secondary-700 dark:text-white">MS in Computer Science, Stanford University</span>
               </div>
             </div>
 
             {/* Key Areas */}
             <div className="pt-4">
-              <h4 className="text-lg font-semibold text-secondary-900 mb-3">Key Areas of Expertise:</h4>
+              <h4 className="text-lg font-semibold text-secondary-900 dark:text-white mb-3">Key Areas of Expertise:</h4>
               <div className="flex flex-wrap gap-2">
                 {['Deep Learning', 'Computer Vision', 'NLP', 'MLOps', 'Data Engineering', 'Cloud Computing'].map((area) => (
                   <span

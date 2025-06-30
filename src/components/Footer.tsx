@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="text-white">
+    <footer>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid md:grid-cols-3 gap-8">
           {/* Brand Section */}
@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
             className="space-y-4"
           >
             <h3 className="text-2xl font-bold gradient-text">ML/DS Portfolio</h3>
-            <p className="text-secondary-300 leading-relaxed">
+            <p className="text-secondary-700 dark:text-secondary-300 leading-relaxed">
               Machine Learning Engineer & Data Scientist passionate about building intelligent solutions 
               that solve real-world problems.
             </p>
@@ -67,13 +67,13 @@ const Footer: React.FC = () => {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <h4 className="text-lg font-semibold">Quick Links</h4>
+            <h4 className="text-lg font-semibold text-secondary-900 dark:text-white">Quick Links</h4>
             <ul className="space-y-2">
               {footerLinks.map((link, index) => (
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="text-secondary-300 hover:text-white transition-colors duration-200"
+                    className="text-secondary-700 dark:text-secondary-300 hover:text-primary-600 dark:hover:text-white transition-colors duration-200"
                   >
                     {link.name}
                   </a>
@@ -90,14 +90,14 @@ const Footer: React.FC = () => {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <h4 className="text-lg font-semibold">Get In Touch</h4>
-            <div className="space-y-2 text-secondary-300">
+            <h4 className="text-lg font-semibold text-secondary-900 dark:text-white">Get In Touch</h4>
+            <div className="space-y-2 text-secondary-700 dark:text-secondary-300">
               <p>📍 San Francisco, CA</p>
               <p>📧 your.email@example.com</p>
               <p>📱 +1 (555) 123-4567</p>
             </div>
             <div className="pt-4">
-              <p className="text-sm text-secondary-400">
+              <p className="text-sm text-secondary-600 dark:text-secondary-400">
                 Available for new opportunities and collaborations
               </p>
             </div>

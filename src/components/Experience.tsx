@@ -98,7 +98,7 @@ const Experience: React.FC = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold gradient-text mb-4">Experience & Education</h2>
-          <p className="text-lg text-secondary-600 max-w-2xl mx-auto">
+          <p className="text-lg text-secondary-600 max-w-2xl mx-auto dark:text-white">
             Professional journey and academic background in machine learning and data science
           </p>
         </motion.div>
@@ -115,7 +115,7 @@ const Experience: React.FC = () => {
               <div className="p-2 bg-primary-100 rounded-lg">
                 <Briefcase size={24} className="text-primary-600" />
               </div>
-              <h3 className="text-2xl font-bold text-secondary-900">Work Experience</h3>
+              <h3 className="text-2xl font-bold text-secondary-900 dark:text-white">Work Experience</h3>
             </div>
 
             <div className="space-y-8">
@@ -188,7 +188,7 @@ const Experience: React.FC = () => {
                 <div className="p-2 bg-accent-100 rounded-lg">
                   <GraduationCap size={24} className="text-accent-600" />
                 </div>
-                <h3 className="text-2xl font-bold text-secondary-900">Education</h3>
+                <h3 className="text-2xl font-bold text-secondary-900 dark:text-white">Education</h3>
               </div>
 
               <div className="space-y-6">
@@ -230,7 +230,7 @@ const Experience: React.FC = () => {
 
             {/* Certifications */}
             <div>
-              <h3 className="text-2xl font-bold text-secondary-900 mb-6">Certifications</h3>
+              <h3 className="text-2xl font-bold text-secondary-900 dark:text-white">Certifications</h3>
               <div className="space-y-4">
                 {certifications.map((cert, index) => (
                   <motion.div

@@ -308,7 +308,7 @@ const Projects: React.FC = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold gradient-text mb-4">Featured Projects</h2>
-          <p className="text-lg text-secondary-600 max-w-2xl mx-auto">
+          <p className="text-lg text-secondary-600 max-w-2xl mx-auto dark:text-white">
             A collection of machine learning and data science projects showcasing technical expertise and problem-solving skills
           </p>
         </motion.div>

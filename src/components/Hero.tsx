@@ -199,7 +199,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-5xl lg:text-6xl font-bold text-secondary-900 mb-6 leading-tight"
+              className="text-5xl lg:text-6xl font-bold text-secondary-900 dark:text-white mb-6 leading-tight"
             >
               Transforming Data into
               <span className="gradient-text block">Intelligent Insights</span>
@@ -209,7 +209,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-xl text-secondary-600 mb-8 leading-relaxed"
+              className="text-xl text-secondary-600 dark:text-white mb-8 leading-relaxed"
             >
               Passionate about building intelligent systems that solve real-world problems. 
               Specializing in deep learning, computer vision, and scalable ML solutions.
@@ -465,7 +465,7 @@ const Hero: React.FC = () => {
             transition={{ duration: 2, repeat: Infinity }}
             className="flex flex-col items-center text-secondary-600"
           >
-            <span className="text-sm mb-2">Scroll to explore</span>
+            <span className="text-sm mb-2 dark:text-white">Scroll to explore</span>
             <ArrowDown size={20} />
           </motion.div>
         </motion.div>

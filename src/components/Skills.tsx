@@ -179,7 +179,7 @@ const Skills: React.FC = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold gradient-text mb-4">Skills & Expertise</h2>
-          <p className="text-lg text-secondary-600 max-w-2xl mx-auto">
+          <p className="text-lg text-secondary-600 max-w-2xl mx-auto dark:text-white">
             Technical skills and tools I use to build intelligent systems and solve complex problems
           </p>
         </motion.div>
@@ -230,7 +230,7 @@ const Skills: React.FC = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <h3 className="text-2xl font-bold text-secondary-900 mb-6">
+            <h3 className="text-2xl font-bold text-secondary-900 mb-6 dark:text-white">
               Technical Proficiency
             </h3>
             {currentCategory.skills.map((skill, index) => (
@@ -251,7 +251,7 @@ const Skills: React.FC = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <h3 className="text-2xl font-bold text-secondary-900 mb-6">
+            <h3 className="text-2xl font-bold text-secondary-900 mb-6 dark:text-white">
               Core Competencies
             </h3>
             
@@ -303,7 +303,7 @@ const Skills: React.FC = () => {
           viewport={{ once: true }}
           className="mt-16"
         >
-          <h3 className="text-2xl font-bold text-secondary-900 mb-8 text-center">
+          <h3 className="text-2xl font-bold text-secondary-900 mb-8 text-center dark:text-white">
             Tools & Technologies
           </h3>
           
