@@ -75,14 +75,25 @@ const About: React.FC = () => {
             viewport={{ once: true }}
             className="space-y-8"
           >
-            {/* Profile Image Placeholder */}
+            {/* Profile Image */}
             <div className="relative">
-              <div className="w-80 h-80 mx-auto bg-gradient-to-br from-primary-400 to-accent-500 rounded-full flex items-center justify-center">
-                <User size={120} className="text-white" />
-              </div>
-              <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-accent-500 rounded-full flex items-center justify-center animate-float">
-                <span className="text-white font-bold text-lg">ML</span>
-              </div>
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                viewport={{ once: true }}
+                className="relative w-80 h-80 mx-auto"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-400 to-accent-500 rounded-full animate-pulse opacity-20"></div>
+                <img
+                  src="/Arvind.png"
+                  alt="Arvind - Machine Learning Engineer"
+                  className="w-full h-full object-cover rounded-full border-4 border-white shadow-2xl"
+                />
+                <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-accent-500 rounded-full flex items-center justify-center animate-float shadow-lg">
+                  <span className="text-white font-bold text-lg">ML</span>
+                </div>
+              </motion.div>
             </div>
 
             {/* Stats */}

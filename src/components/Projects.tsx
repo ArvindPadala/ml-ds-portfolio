@@ -404,7 +404,7 @@ const Projects: React.FC = () => {
           className="text-center mt-12"
         >
           <motion.a
-            href="https://github.com"
+            href="https://github.com/ArvindPadala?tab=repositories"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ 

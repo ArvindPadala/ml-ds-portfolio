@@ -25,8 +25,9 @@ const AnimatedNumber: React.FC<AnimatedNumberProps> = ({ value, duration = 1.2, 
 
   React.useEffect(() => {
     return spring.on('change', (latest) => {
-      setDisplay(Math.floor(latest));
-      if (Math.floor(latest) === value) {
+      const hasDecimals = value % 1 !== 0;
+      setDisplay(hasDecimals ? parseFloat(latest.toFixed(1)) : Math.floor(latest));
+      if (hasDecimals ? parseFloat(latest.toFixed(1)) === value : Math.floor(latest) === value) {
         setPulse(true);
         setTimeout(() => setPulse(false), 600);
       }

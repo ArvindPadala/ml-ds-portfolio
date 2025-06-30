@@ -78,31 +78,29 @@ const Experience: React.FC = () => {
 
   const education = [
     {
-      degree: 'Master of Science in Computer Science',
-      school: 'Stanford University',
-      location: 'Stanford, CA',
-      period: '2018 - 2020',
-      gpa: '3.9/4.0',
-      focus: 'Artificial Intelligence & Machine Learning',
-      thesis: 'Advanced Techniques in Computer Vision for Autonomous Systems'
+      degree: 'Master of Science in Statistics - Data Science',
+      school: 'Rutgers, The State University of New Jersey',
+      location: 'New Brunswick, NJ',
+      period: '2023 - 2025',
+      gpa: '3.7 /4.0',
+      focus: 'Artificial Intelligence & Machine Learning'
     },
     {
-      degree: 'Bachelor of Science in Computer Science',
-      school: 'University of California, Berkeley',
-      location: 'Berkeley, CA',
-      period: '2014 - 2018',
-      gpa: '3.8/4.0',
-      focus: 'Computer Science & Mathematics',
-      thesis: 'Machine Learning Applications in Data Mining'
+      degree: 'Bachelor of Technology in Computer Science and Engineering',
+      school: 'St. Martin\'s Engineering College',
+      location: 'Hyderabad, India',
+      period: '2017 - 2021',
+      gpa: '3.8 /4.0',
+      focus: 'Computer Science & Systems Design Engineering'
     }
   ];
 
   const certifications = [
     {
-      name: 'AWS Certified Machine Learning - Specialty',
-      issuer: 'Amazon Web Services',
-      date: '2023',
-      credential: 'AWS-ML-001'
+      name: 'Microsoft Certified: Azure Data Scientist Associate',
+      issuer: 'Microsoft',
+      date: '2025',
+      credential: 'AZ-400'
     },
     {
       name: 'Google Cloud Professional Machine Learning Engineer',
@@ -269,7 +267,7 @@ const Experience: React.FC = () => {
                         <span>GPA: <AnimatedNumber value={parseFloat(edu.gpa.split('/')[0])} duration={1.5} />/4.0</span>
                       </div>
                       <p><strong>Focus:</strong> {edu.focus}</p>
-                      <p><strong>Thesis:</strong> {edu.thesis}</p>
+                      {/* <p><strong>Thesis:</strong> {edu.thesis}</p> */}
                     </div>
                   </motion.div>
                 ))}
