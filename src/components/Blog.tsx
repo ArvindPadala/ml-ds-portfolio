@@ -1,8 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Calendar, Clock, User, ArrowRight, BookOpen, Code, Brain, BarChart3, Globe, CheckCircle, AlertCircle } from 'lucide-react';
 import AnimatedNumber from './AnimatedNumber';
-import { web3formsService, NewsletterData } from '../services/web3forms';
+import { web3formsService } from '../services/web3forms';
+import { Link } from 'react-router-dom';
 
 // Micro-animation: Data Particle Burst
 const DataParticleBurst = ({ trigger }: { trigger: boolean }) => {
@@ -683,6 +684,12 @@ const Blog: React.FC = () => {
             )}
           </div>
         </motion.div>
+
+        <div className="flex justify-center mt-8">
+          <Link to="/blog" className="btn-primary px-8 py-3 text-lg font-semibold">
+            See More Blogs
+          </Link>
+        </div>
       </div>
     </section>
   );

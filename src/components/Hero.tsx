@@ -1,6 +1,6 @@
 import React, { useRef, useContext } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ArrowDown, Download, Github, Linkedin, Twitter, Mail, BookOpen, Sparkles } from 'lucide-react';
+import { ArrowDown, Download, Github, Linkedin, Mail, BookOpen, Sparkles } from 'lucide-react';
 import { ThemeContext } from '../App';
 
 const Hero: React.FC = () => {

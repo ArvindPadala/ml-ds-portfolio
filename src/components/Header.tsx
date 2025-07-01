@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X, Sun, Moon, Sparkles } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeContext } from '../App';
 
 const Header: React.FC = () => {
@@ -8,6 +9,8 @@ const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showThemeHint, setShowThemeHint] = useState(false);
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,14 +38,31 @@ const Header: React.FC = () => {
     }
   }, []);
 
+  // Function to handle navigation with hash scrolling
+  const handleNavigation = (href: string, hash?: string) => {
+    if (location.pathname === href) {
+      // If we're already on the target page, just scroll to hash
+      if (hash) {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    } else {
+      // Navigate to the page first, then scroll to hash
+      navigate(href + (hash || ''));
+    }
+  };
+
   const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Blog', href: '#blog' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/', hash: '#home' },
+    { name: 'About', href: '/', hash: '#about' },
+    { name: 'Skills', href: '/', hash: '#skills' },
+    { name: 'Projects', href: '/', hash: '#projects' },
+    { name: 'Experience', href: '/', hash: '#experience' },
+    { name: 'Featured', href: '/', hash: '#blog' },
+    { name: 'Blog', href: '/blog' },
+    { name: 'Contact', href: '/', hash: '#contact' },
   ];
 
   return (
@@ -65,19 +85,33 @@ const Header: React.FC = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8 items-center">
             {navItems.map((item) => (
-              <motion.a
+              <motion.div
                 key={item.name}
-                href={item.href}
                 whileHover={{ 
                   scale: 1.12,
                   boxShadow: "0 0 12px 2px #60a5fa, 0 0 24px 4px #e879f9"
                 }}
                 whileTap={{ scale: 0.97 }}
-                className="text-secondary-700 dark:text-secondary-100 hover:text-primary-600 dark:hover:text-accent-400 font-medium transition-colors duration-200"
                 style={{ boxShadow: 'none' }}
               >
-                {item.name}
-              </motion.a>
+                {item.hash ? (
+                  // For homepage sections, use custom navigation with hash
+                  <button
+                    onClick={() => handleNavigation(item.href, item.hash)}
+                    className="text-secondary-700 dark:text-secondary-100 hover:text-primary-600 dark:hover:text-accent-400 font-medium transition-colors duration-200"
+                  >
+                    {item.name}
+                  </button>
+                ) : (
+                  // For other pages like Blog, use regular Link
+                  <Link
+                    to={item.href}
+                    className="text-secondary-700 dark:text-secondary-100 hover:text-primary-600 dark:hover:text-accent-400 font-medium transition-colors duration-200"
+                  >
+                    {item.name}
+                  </Link>
+                )}
+              </motion.div>
             ))}
             {/* Theme Toggle Button */}
             <div className="relative ml-4">
@@ -161,14 +195,29 @@ const Header: React.FC = () => {
             className="md:hidden py-4 border-t border-secondary-200 dark:border-secondary-700 mb-6"
           >
             {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="block py-2 text-secondary-700 dark:text-secondary-100 hover:text-primary-600 dark:hover:text-accent-400 font-medium"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {item.name}
-              </a>
+              <div key={item.name}>
+                {item.hash ? (
+                  // For homepage sections, use custom navigation with hash
+                  <button
+                    onClick={() => {
+                      handleNavigation(item.href, item.hash);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="block py-2 text-secondary-700 dark:text-secondary-100 hover:text-primary-600 dark:hover:text-accent-400 font-medium w-full text-left"
+                  >
+                    {item.name}
+                  </button>
+                ) : (
+                  // For other pages like Blog, use regular Link
+                  <Link
+                    to={item.href}
+                    className="block py-2 text-secondary-700 dark:text-secondary-100 hover:text-primary-600 dark:hover:text-accent-400 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                )}
+              </div>
             ))}
             {/* Theme Toggle Button (Mobile) */}
             <div className="relative mt-4">

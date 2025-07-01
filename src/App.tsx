@@ -1,13 +1,10 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Experience from './components/Experience';
-import Blog from './components/Blog';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import BlogPage from './components/BlogPage';
+import AdminBlogPage from './components/AdminBlogPage';
+import HomePage from './components/HomePage';
 
 // Theme context for dark mode (dark mode is now default)
 export const ThemeContext = createContext({
@@ -53,17 +50,17 @@ function App() {
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, resetThemeHint }}>
       <div className={`min-h-screen bg-secondary-50 dark:bg-gradient-to-br dark:from-secondary-900 dark:via-primary-900 dark:to-accent-900`}>
-        <Header />
-        <main>
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Experience />
-          <Blog />
-          <Contact />
-        </main>
-        <Footer />
+        <Router>
+          <Header />
+          <main>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/admin" element={<AdminBlogPage />} />
+            </Routes>
+          </main>
+          <Footer />
+        </Router>
       </div>
     </ThemeContext.Provider>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { User, MapPin, Calendar, GraduationCap } from 'lucide-react';
+import { MapPin, Calendar, GraduationCap } from 'lucide-react';
 import AnimatedNumber from './AnimatedNumber';
 
 // Micro-animation: Data Particle Burst
