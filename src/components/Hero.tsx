@@ -192,7 +192,7 @@ const Hero: React.FC = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="mb-6"
             >
-              <span className="inline-block px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-medium mb-4">
+              <span className="inline-block px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-xs font-medium mb-2 sm:px-4 sm:py-2 sm:text-sm sm:mb-4">
                 Here's what I do
               </span>
             </motion.div>
@@ -201,7 +201,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-5xl lg:text-6xl font-bold text-secondary-900 dark:text-white mb-6 leading-tight"
+              className="mt-4 sm:mt-0 text-5xl lg:text-6xl font-bold text-secondary-900 dark:text-white mb-6 leading-tight"
             >
               Transforming Data into
               <span className="gradient-text block">Intelligent Insights</span>

@@ -158,7 +158,7 @@ const Header: React.FC = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden py-4 border-t border-secondary-200 dark:border-secondary-700"
+            className="md:hidden py-4 border-t border-secondary-200 dark:border-secondary-700 mb-6"
           >
             {navItems.map((item) => (
               <a
