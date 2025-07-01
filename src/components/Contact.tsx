@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, CheckCircle, AlertCircle } from 'lucide-react';
+import { web3formsService, ContactFormData } from '../services/web3forms';
 
 // Micro-animation: Data Particle Burst
 const DataParticleBurst = ({ trigger }: { trigger: boolean }) => {
@@ -25,26 +26,46 @@ const DataParticleBurst = ({ trigger }: { trigger: boolean }) => {
 };
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
     subject: '',
     message: ''
   });
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    if (isSubmitting) return;
+    
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
+    
+    try {
+      const response = await web3formsService.submitContactForm(formData);
+      setSubmitStatus({ type: 'success', message: response.message });
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      setSubmitStatus({ 
+        type: 'error', 
+        message: error instanceof Error ? error.message : 'Failed to send message. Please try again.' 
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   const contactInfo = [
@@ -88,82 +109,6 @@ const Contact: React.FC = () => {
       color: 'hover:text-blue-400'
     }
   ];
-
-  const AnimatedInput = ({ 
-    type, 
-    name, 
-    value, 
-    onChange, 
-    placeholder, 
-    required = false,
-    rows = 1 
-  }: {
-    type: string;
-    name: string;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-    placeholder: string;
-    required?: boolean;
-    rows?: number;
-  }) => {
-    const [isFocused, setIsFocused] = useState(false);
-    const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
-
-    return (
-      <motion.div
-        className="relative"
-        whileHover={{ scale: 1.02 }}
-        transition={{ type: "spring", stiffness: 300 }}
-      >
-        {type === 'textarea' ? (
-          <motion.textarea
-            ref={inputRef as React.RefObject<HTMLTextAreaElement>}
-            name={name}
-            value={value}
-            onChange={onChange}
-            required={required}
-            rows={rows}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-            className="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 resize-none"
-            placeholder={placeholder}
-            style={{
-              transformStyle: "preserve-3d",
-            }}
-          />
-        ) : (
-          <motion.input
-            ref={inputRef as React.RefObject<HTMLInputElement>}
-            type={type}
-            name={name}
-            value={value}
-            onChange={onChange}
-            required={required}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-            className="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
-            placeholder={placeholder}
-            style={{
-              transformStyle: "preserve-3d",
-            }}
-          />
-        )}
-        
-        {/* Animated border effect */}
-        <motion.div
-          className="absolute inset-0 border-2 border-transparent rounded-lg pointer-events-none"
-          animate={{
-            borderColor: isFocused ? ["#3b82f6", "#8b5cf6", "#3b82f6"] : "transparent",
-          }}
-          transition={{
-            duration: 2,
-            repeat: isFocused ? Infinity : 0,
-            ease: "linear"
-          }}
-        />
-      </motion.div>
-    );
-  };
 
   // Track if section is in view for burst
   const [inView, setInView] = React.useState(false);
@@ -228,7 +173,6 @@ const Contact: React.FC = () => {
           }}
         />
       </div>
-
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -259,26 +203,30 @@ const Contact: React.FC = () => {
                   <label htmlFor="name" className="block text-sm font-medium text-secondary-700 mb-2 dark:text-white">
                     Name
                   </label>
-                  <AnimatedInput
+                  <input
                     type="text"
+                    id="name"
                     name="name"
                     value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Your name"
+                    onChange={handleInputChange}
                     required
+                    className="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 hover:border-primary-400"
+                    placeholder="Your name"
                   />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-secondary-700 mb-2 dark:text-white">
                     Email
                   </label>
-                  <AnimatedInput
+                  <input
                     type="email"
+                    id="email"
                     name="email"
                     value={formData.email}
-                    onChange={handleChange}
-                    placeholder="your.email@example.com"
+                    onChange={handleInputChange}
                     required
+                    className="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 hover:border-primary-400"
+                    placeholder="your.email@example.com"
                   />
                 </div>
               </div>
@@ -287,13 +235,15 @@ const Contact: React.FC = () => {
                 <label htmlFor="subject" className="block text-sm font-medium text-secondary-700 mb-2 dark:text-white">
                   Subject
                 </label>
-                <AnimatedInput
+                <input
                   type="text"
+                  id="subject"
                   name="subject"
                   value={formData.subject}
-                  onChange={handleChange}
-                  placeholder="What's this about?"
+                  onChange={handleInputChange}
                   required
+                  className="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 hover:border-primary-400"
+                  placeholder="What's this about?"
                 />
               </div>
 
@@ -301,26 +251,32 @@ const Contact: React.FC = () => {
                 <label htmlFor="message" className="block text-sm font-medium text-secondary-700 mb-2 dark:text-white">
                   Message
                 </label>
-                <AnimatedInput
-                  type="textarea"
+                <textarea
+                  id="message"
                   name="message"
                   value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Tell me about your project or opportunity..."
+                  onChange={handleInputChange}
                   required
                   rows={6}
+                  className="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 hover:border-primary-400 resize-none"
+                  placeholder="Tell me about your project or opportunity..."
                 />
               </div>
 
               <motion.button
                 type="submit"
+                disabled={isSubmitting}
                 whileHover={{ 
-                  scale: 1.02,
-                  rotateY: 5,
-                  boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)"
+                  scale: isSubmitting ? 1 : 1.02,
+                  rotateY: isSubmitting ? 0 : 5,
+                  boxShadow: isSubmitting ? "0 10px 20px rgba(107, 114, 128, 0.2)" : "0 20px 40px rgba(59, 130, 246, 0.3)"
                 }}
-                whileTap={{ scale: 0.98 }}
-                className="btn-primary w-full flex items-center justify-center space-x-2 py-3 relative overflow-hidden group"
+                whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                className={`w-full flex items-center justify-center space-x-2 py-3 relative overflow-hidden group ${
+                  isSubmitting 
+                    ? 'bg-secondary-400 cursor-not-allowed' 
+                    : 'btn-primary'
+                }`}
                 style={{ transformStyle: "preserve-3d" }}
               >
                 <motion.div
@@ -329,9 +285,41 @@ const Contact: React.FC = () => {
                   whileHover={{ x: "0%" }}
                   transition={{ duration: 0.3 }}
                 />
-                <Send size={20} className="relative z-10" />
-                <span className="relative z-10">Send Message</span>
+                {isSubmitting ? (
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    className="relative z-10"
+                  >
+                    <Send size={20} />
+                  </motion.div>
+                ) : (
+                  <Send size={20} className="relative z-10" />
+                )}
+                <span className="relative z-10">
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                </span>
               </motion.button>
+
+              {/* Status Message */}
+              {submitStatus.type && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`mt-4 p-3 rounded-lg flex items-center space-x-2 ${
+                    submitStatus.type === 'success' 
+                      ? 'bg-green-100 text-green-700 border border-green-200' 
+                      : 'bg-red-100 text-red-700 border border-red-200'
+                  }`}
+                >
+                  {submitStatus.type === 'success' ? (
+                    <CheckCircle size={20} />
+                  ) : (
+                    <AlertCircle size={20} />
+                  )}
+                  <span className="text-sm font-medium">{submitStatus.message}</span>
+                </motion.div>
+              )}
             </form>
           </motion.div>
 

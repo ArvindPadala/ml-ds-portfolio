@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, Sparkles } from 'lucide-react';
 import { ThemeContext } from '../App';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showThemeHint, setShowThemeHint] = useState(false);
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   useEffect(() => {
@@ -14,6 +15,24 @@ const Header: React.FC = () => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Show theme hint for first-time visitors
+  useEffect(() => {
+    const hasSeenHint = localStorage.getItem('themeHintSeen');
+    if (!hasSeenHint) {
+      // Show hint after a short delay
+      const timer = setTimeout(() => {
+        setShowThemeHint(true);
+        // Hide hint after 5 seconds
+        setTimeout(() => {
+          setShowThemeHint(false);
+          localStorage.setItem('themeHintSeen', 'true');
+        }, 5000);
+      }, 2000);
+      
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   const navItems = [
@@ -61,23 +80,67 @@ const Header: React.FC = () => {
               </motion.a>
             ))}
             {/* Theme Toggle Button */}
-            <motion.button
-              onClick={toggleTheme}
-              whileHover={{
-                scale: 1.18,
-                boxShadow: "0 0 16px 4px #e879f9, 0 0 32px 8px #60a5fa"
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="ml-4 p-2 rounded-full bg-secondary-100 dark:bg-secondary-800 hover:bg-primary-100 dark:hover:bg-accent-700 transition-colors duration-200 flex items-center justify-center"
-              aria-label="Toggle dark mode"
-              style={{ boxShadow: 'none' }}
-            >
-              {theme === 'dark' ? (
-                <Sun size={20} className="text-yellow-300" />
-              ) : (
-                <Moon size={20} className="text-primary-600" />
+            <div className="relative ml-4">
+              {/* Theme Hint Indicator */}
+              {showThemeHint && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  className="absolute -top-2 -right-2 z-10"
+                >
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      rotate: [0, 10, -10, 0],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    className="bg-gradient-to-r from-primary-500 to-accent-500 text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg"
+                  >
+                    <div className="flex items-center space-x-1">
+                      <Sparkles size={12} />
+                      <span>Toggle Theme</span>
+                    </div>
+                  </motion.div>
+                  {/* Arrow pointing to button */}
+                  <motion.div
+                    animate={{
+                      y: [0, -5, 0],
+                    }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-primary-500"
+                  />
+                </motion.div>
               )}
-            </motion.button>
+              
+              <motion.button
+                onClick={toggleTheme}
+                whileHover={{
+                  scale: 1.18,
+                  boxShadow: "0 0 16px 4px #e879f9, 0 0 32px 8px #60a5fa"
+                }}
+                whileTap={{ scale: 0.95 }}
+                className={`p-2 rounded-full bg-secondary-100 dark:bg-secondary-800 hover:bg-primary-100 dark:hover:bg-accent-700 transition-colors duration-200 flex items-center justify-center ${
+                  showThemeHint ? 'ring-2 ring-primary-500 ring-opacity-50 animate-pulse' : ''
+                }`}
+                aria-label="Toggle theme"
+                style={{ boxShadow: 'none' }}
+              >
+                {theme === 'dark' ? (
+                  <Sun size={20} className="text-yellow-300" />
+                ) : (
+                  <Moon size={20} className="text-primary-600" />
+                )}
+              </motion.button>
+            </div>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -108,17 +171,61 @@ const Header: React.FC = () => {
               </a>
             ))}
             {/* Theme Toggle Button (Mobile) */}
-            <button
-              onClick={toggleTheme}
-              className="mt-4 p-2 rounded-full bg-secondary-100 dark:bg-secondary-800 hover:bg-primary-100 dark:hover:bg-accent-700 transition-colors duration-200 flex items-center justify-center"
-              aria-label="Toggle dark mode"
-            >
-              {theme === 'dark' ? (
-                <Sun size={20} className="text-yellow-300" />
-              ) : (
-                <Moon size={20} className="text-primary-600" />
+            <div className="relative mt-4">
+              {/* Theme Hint Indicator (Mobile) */}
+              {showThemeHint && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  className="absolute -top-2 -left-2 z-10"
+                >
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      rotate: [0, 10, -10, 0],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    className="bg-gradient-to-r from-primary-500 to-accent-500 text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg"
+                  >
+                    <div className="flex items-center space-x-1">
+                      <Sparkles size={12} />
+                      <span>Toggle Theme</span>
+                    </div>
+                  </motion.div>
+                  {/* Arrow pointing to button */}
+                  <motion.div
+                    animate={{
+                      y: [0, -5, 0],
+                    }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-primary-500"
+                  />
+                </motion.div>
               )}
-            </button>
+              
+              <button
+                onClick={toggleTheme}
+                className={`p-2 rounded-full bg-secondary-100 dark:bg-secondary-800 hover:bg-primary-100 dark:hover:bg-accent-700 transition-colors duration-200 flex items-center justify-center ${
+                  showThemeHint ? 'ring-2 ring-primary-500 ring-opacity-50 animate-pulse' : ''
+                }`}
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? (
+                  <Sun size={20} className="text-yellow-300" />
+                ) : (
+                  <Moon size={20} className="text-primary-600" />
+                )}
+              </button>
+            </div>
           </motion.nav>
         )}
       </div>

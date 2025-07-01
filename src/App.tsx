@@ -9,20 +9,25 @@ import Blog from './components/Blog';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
-// Theme context for dark mode
+// Theme context for dark mode (dark mode is now default)
 export const ThemeContext = createContext({
-  theme: 'light',
+  theme: 'dark',
   toggleTheme: () => {},
+  resetThemeHint: () => {},
 });
 
 function App() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('dark'); // Changed default to dark
 
   // Initialize theme from localStorage
   useEffect(() => {
     const stored = localStorage.getItem('theme');
     if (stored === 'dark' || stored === 'light') {
       setTheme(stored);
+    } else {
+      // If no theme is stored, default to dark mode
+      setTheme('dark');
+      localStorage.setItem('theme', 'dark');
     }
   }, []);
 
@@ -40,8 +45,13 @@ function App() {
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
   }, []);
 
+  // Function to reset theme hint (for testing)
+  const resetThemeHint = useCallback(() => {
+    localStorage.removeItem('themeHintSeen');
+  }, []);
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, resetThemeHint }}>
       <div className={`min-h-screen bg-secondary-50 dark:bg-gradient-to-br dark:from-secondary-900 dark:via-primary-900 dark:to-accent-900`}>
         <Header />
         <main>

@@ -36,43 +36,44 @@ function renderPeriodWithAnimation(period: string) {
 const Experience: React.FC = () => {
   const workExperience = [
     {
-      title: 'Senior Machine Learning Engineer',
-      company: 'TechCorp AI',
-      location: 'San Francisco, CA',
-      period: '2022 - Present',
+      title: 'Software Engineer',
+      company: 'INFOSYS LIMITED',
+      location: 'Hyderabad, India',
+      period: '2021 - 2023',
       description: 'Leading ML initiatives for computer vision and NLP projects, managing a team of 5 engineers.',
       achievements: [
-        'Developed computer vision system reducing processing time by 60%',
-        'Implemented MLOps pipeline improving model deployment efficiency by 40%',
-        'Mentored junior engineers and conducted technical interviews'
+        'Automated AI quality assurance processes, improving model pipeline reliability by 30%',
+        'Optimized SQL & Oracle databases, enhancing query performance by 40%',
+        'Designed Power BI dashboards, enabling real-time telecom data visualization for business teams.',
+        'Developed NLP-based chatbots to automate customer support, reducing response time by 50%'
       ],
-      technologies: ['Python', 'TensorFlow', 'Kubernetes', 'AWS', 'Docker']
+      technologies: ['Python', 'SQL', 'Power BI', 'Oracle', 'Docker', 'NLP', 'Chatbots']
     },
     {
-      title: 'Data Scientist',
-      company: 'DataFlow Analytics',
-      location: 'Seattle, WA',
-      period: '2020 - 2022',
-      description: 'Built predictive models and data pipelines for e-commerce analytics.',
+      title: 'International Student Orientation Leader',
+      company: 'Rutgers University',
+      location: 'New Brunswick, NJ',
+      period: '2024 - 2025',
+      description: 'Led orientation sessions for 1000+ international students, providing cultural integration support.',
       achievements: [
-        'Created recommendation system increasing sales by 25%',
-        'Automated data processing pipeline handling 1TB+ daily data',
-        'Published 2 research papers on recommendation algorithms'
+        'Developed a comprehensive orientation program, reducing student anxiety by 60%',
+        'Created a student-led mentorship program, improving retention by 30%',
+        'Data collection and analysis for the Office of International Student and Scholar Services'
       ],
-      technologies: ['Python', 'PyTorch', 'Apache Spark', 'PostgreSQL', 'Airflow']
+      technologies: ['Python', 'SQL', 'Data Analysis', 'Data Visualization', 'ETL', 'Data Warehousing','Excel']
     },
     {
-      title: 'ML Research Intern',
-      company: 'AI Research Lab',
-      location: 'Stanford, CA',
-      period: '2019 - 2020',
-      description: 'Research intern focusing on natural language processing and transformer models.',
+      title: 'Data Operations Support',
+      company: 'Rutgers Mailing Services',
+      location: 'New Brunswick, NJ',
+      period: '2024 - Present',
+      description: 'Supported data-driven optimization of high-volume mail operations at Rutgers IP&O by streamlining tracking workflows and ensuring accurate, timely delivery across departments.',
       achievements: [
-        'Contributed to BERT-based sentiment analysis research',
-        'Improved model accuracy by 15% on benchmark datasets',
-        'Presented findings at 2 international conferences'
+        'Streamlined internal mailing workflows with a process-first mindset—bridging physical operations with data-driven thinking.',
+        'Supported backend logistics for university-wide correspondence, applying operational precision to route, track, and deliver high-volume mail across departments.',
+        'Gained hands-on exposure to real-world service systems, reinforcing my foundation in systems optimization, attention to detail, and procedural efficiency'
       ],
-      technologies: ['Python', 'Transformers', 'PyTorch', 'Hugging Face', 'Jupyter']
+      technologies: ['Excel', 'Data Analysis', 'Data Visualization', 'ETL', 'Data Warehousing']
     }
   ];
 
@@ -100,13 +101,14 @@ const Experience: React.FC = () => {
       name: 'Microsoft Certified: Azure Data Scientist Associate',
       issuer: 'Microsoft',
       date: '2025',
-      credential: 'AZ-400'
+      credential_ID: 'E6271CC73F99439F',
+      Certification_number: '4D027F-7228BD'
     },
     {
-      name: 'Google Cloud Professional Machine Learning Engineer',
-      issuer: 'Google Cloud',
-      date: '2022',
-      credential: 'GCP-ML-001'
+      name: 'AWS Certified AI Practitioner',
+      issuer: 'Amazon Web Services',
+      date: '2025',
+      credential: 'AWS-AI-001'
     },
     {
       name: 'Deep Learning Specialization',

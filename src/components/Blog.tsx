@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Calendar, Clock, User, ArrowRight, BookOpen, Code, Brain, BarChart3, Globe } from 'lucide-react';
+import { Calendar, Clock, User, ArrowRight, BookOpen, Code, Brain, BarChart3, Globe, CheckCircle, AlertCircle } from 'lucide-react';
 import AnimatedNumber from './AnimatedNumber';
+import { web3formsService, NewsletterData } from '../services/web3forms';
 
 // Micro-animation: Data Particle Burst
 const DataParticleBurst = ({ trigger }: { trigger: boolean }) => {
@@ -27,6 +28,31 @@ const DataParticleBurst = ({ trigger }: { trigger: boolean }) => {
 
 const Blog: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState('all');
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [newsletterStatus, setNewsletterStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubscribing(true);
+    setNewsletterStatus({ type: null, message: '' });
+    
+    try {
+      const response = await web3formsService.subscribeToNewsletter({ email: newsletterEmail });
+      setNewsletterStatus({ type: 'success', message: response.message });
+      setNewsletterEmail('');
+    } catch (error) {
+      setNewsletterStatus({ 
+        type: 'error', 
+        message: error instanceof Error ? error.message : 'Failed to subscribe. Please try again.' 
+      });
+    } finally {
+      setIsSubscribing(false);
+    }
+  };
 
   // Neural Network Animation Component
   const NeuralNetworkAnimation = () => {
@@ -607,25 +633,54 @@ const Blog: React.FC = () => {
             <p className="text-secondary-600 mb-6 max-w-md mx-auto">
               Get notified when I publish new articles about machine learning and data science.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input
                 type="email"
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
                 placeholder="Enter your email"
+                required
                 className="flex-1 px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
               />
               <motion.button
+                type="submit"
+                disabled={isSubscribing}
                 whileHover={{ 
-                  scale: 1.05,
-                  rotateY: 5,
-                  boxShadow: "0 10px 25px rgba(59, 130, 246, 0.3)"
+                  scale: isSubscribing ? 1 : 1.05,
+                  rotateY: isSubscribing ? 0 : 5,
+                  boxShadow: isSubscribing ? "0 5px 15px rgba(107, 114, 128, 0.2)" : "0 10px 25px rgba(59, 130, 246, 0.3)"
                 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-primary px-6 py-3"
+                whileTap={{ scale: isSubscribing ? 1 : 0.95 }}
+                className={`px-6 py-3 ${
+                  isSubscribing 
+                    ? 'bg-secondary-400 cursor-not-allowed' 
+                    : 'btn-primary'
+                }`}
                 style={{ transformStyle: "preserve-3d" }}
               >
-                Subscribe
+                {isSubscribing ? 'Subscribing...' : 'Subscribe'}
               </motion.button>
-            </div>
+            </form>
+
+            {/* Newsletter Status Message */}
+            {newsletterStatus.type && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`mt-4 p-3 rounded-lg flex items-center justify-center space-x-2 ${
+                  newsletterStatus.type === 'success' 
+                    ? 'bg-green-100 text-green-700 border border-green-200' 
+                    : 'bg-red-100 text-red-700 border border-red-200'
+                }`}
+              >
+                {newsletterStatus.type === 'success' ? (
+                  <CheckCircle size={20} />
+                ) : (
+                  <AlertCircle size={20} />
+                )}
+                <span className="text-sm font-medium">{newsletterStatus.message}</span>
+              </motion.div>
+            )}
           </div>
         </motion.div>
       </div>

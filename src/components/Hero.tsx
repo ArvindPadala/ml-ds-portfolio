@@ -1,11 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ArrowDown, Download, Github, Linkedin, Twitter, Mail, BookOpen } from 'lucide-react';
+import { ArrowDown, Download, Github, Linkedin, Twitter, Mail, BookOpen, Sparkles } from 'lucide-react';
+import { ThemeContext } from '../App';
 
 const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const { resetThemeHint } = useContext(ThemeContext);
 
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [15, -15]), {
     damping: 25,
@@ -231,7 +233,9 @@ const Hero: React.FC = () => {
               >
                 View Projects
               </motion.button>
-              <motion.button
+              <motion.a
+                href="/Arvind_Padala_Resume.pdf"
+                download="Arvind_Padala_Resume.pdf"
                 whileHover={{ 
                   scale: 1.05,
                   boxShadow: "0 10px 25px rgba(107, 114, 128, 0.3)"
@@ -241,7 +245,7 @@ const Hero: React.FC = () => {
               >
                 <Download size={20} />
                 Download CV
-              </motion.button>
+              </motion.a>
             </motion.div>
 
             <motion.div
@@ -410,11 +414,11 @@ const Hero: React.FC = () => {
                     </div>
                     <div className="flex justify-between items-center mt-2">
                       <span className="text-sm opacity-80">Projects</span>
-                      <span className="text-lg font-bold">15+</span>
+                      <span className="text-lg font-bold">20+</span>
                     </div>
                     <div className="flex justify-between items-center mt-2">
                       <span className="text-sm opacity-80">Technologies</span>
-                      <span className="text-lg font-bold">1+</span>
+                      <span className="text-lg font-bold">15+</span>
                     </div>
                   </motion.div>
                 </div>
@@ -469,6 +473,17 @@ const Hero: React.FC = () => {
             <ArrowDown size={20} />
           </motion.div>
         </motion.div>
+
+        {/* Theme Hint Test Button (Development Only) */}
+        <motion.button
+          onClick={resetThemeHint}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="absolute top-4 right-4 p-2 bg-primary-500 text-white rounded-full shadow-lg hover:bg-primary-600 transition-colors duration-200"
+          title="Reset Theme Hint (Test)"
+        >
+          <Sparkles size={16} />
+        </motion.button>
       </div>
     </section>
   );
