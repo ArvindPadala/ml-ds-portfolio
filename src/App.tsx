@@ -25,7 +25,7 @@ function App() {
     if (stored === 'dark' || stored === 'light') {
       setTheme(stored);
     } else {
-      // If no theme is stored, default to dark mode
+      // Always default to dark mode on first visit
       setTheme('dark');
       localStorage.setItem('theme', 'dark');
     }
