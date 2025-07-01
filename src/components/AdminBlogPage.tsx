@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { auth, googleProvider, db, storage } from '../services/firebase';
+import { auth, googleProvider, db } from '../services/firebase';
 import { signInWithPopup, signOut } from 'firebase/auth';
 import { collection, addDoc, Timestamp, getDocs, deleteDoc, doc, query, orderBy, updateDoc } from 'firebase/firestore';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const initialForm = {
   title: '',
@@ -86,9 +85,19 @@ const AdminBlogPage: React.FC = () => {
 
   const handleSignIn = async () => {
     try {
+      setError('');
       await signInWithPopup(auth, googleProvider);
-    } catch (err) {
-      setError('Sign in failed.');
+    } catch (err: any) {
+      console.error('Sign in error:', err);
+      if (err.code === 'auth/popup-closed-by-user') {
+        setError('Sign in was cancelled.');
+      } else if (err.code === 'auth/unauthorized-domain') {
+        setError('This domain is not authorized. Please contact the administrator.');
+      } else if (err.code === 'auth/popup-blocked') {
+        setError('Popup was blocked. Please allow popups for this site.');
+      } else {
+        setError(`Sign in failed: ${err.message || 'Unknown error'}`);
+      }
     }
   };
 
@@ -105,7 +114,6 @@ const AdminBlogPage: React.FC = () => {
     setLoading(true);
     setError('');
     setSuccess('');
-    let imageUrl = form.image;
     try {
       await addDoc(collection(db, 'blogs'), {
         ...form,
@@ -164,7 +172,6 @@ const AdminBlogPage: React.FC = () => {
     setEditLoading(true);
     setEditError('');
     setEditSuccess('');
-    let imageUrl = editForm.image;
     try {
       await updateDoc(doc(db, 'blogs', editingPost.id), {
         ...editForm,
@@ -184,7 +191,10 @@ const AdminBlogPage: React.FC = () => {
     <div className="max-w-4xl mx-auto py-16 px-4">
       <h1 className="text-4xl font-bold mb-10 gradient-text">Admin Blog Editor</h1>
       {!user ? (
-        <button onClick={handleSignIn} className="btn-primary px-6 py-3 text-lg font-semibold mb-8">Sign in with Google</button>
+        <div className="text-center">
+          <button onClick={handleSignIn} className="btn-primary px-6 py-3 text-lg font-semibold mb-4">Sign in with Google</button>
+          {error && <p className="text-red-500 mt-4 text-lg max-w-md mx-auto">{error}</p>}
+        </div>
       ) : (
         <>
           <div className="flex items-center justify-between mb-6">
