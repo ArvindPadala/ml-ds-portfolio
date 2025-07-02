@@ -40,7 +40,7 @@ const Experience: React.FC = () => {
       company: 'INFOSYS LIMITED',
       location: 'Hyderabad, India',
       period: '2021 - 2023',
-      description: 'Leading ML initiatives for computer vision and NLP projects, managing a team of 5 engineers.',
+      description: 'Spearheaded AI and data-driven automation across NLP, BI, and database systems—boosting model reliability, accelerating queries by 40%, and slashing customer response time by 50%.',
       achievements: [
         'Automated AI quality assurance processes, improving model pipeline reliability by 30%',
         'Optimized SQL & Oracle databases, enhancing query performance by 40%',
