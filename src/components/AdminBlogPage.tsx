@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { auth, googleProvider, db } from '../services/firebase';
 import { signInWithPopup, signOut } from 'firebase/auth';
 import { collection, addDoc, Timestamp, getDocs, deleteDoc, doc, query, orderBy, updateDoc } from 'firebase/firestore';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { ThemeContext } from '../App';
 
 const initialForm = {
   title: '',
@@ -26,25 +27,6 @@ interface BlogPost {
   image?: string;
 }
 
-const quillModules = {
-  toolbar: [
-    [{ header: [1, 2, 3, false] }],
-    ['bold', 'italic', 'underline', 'strike'],
-    [{ list: 'ordered' }, { list: 'bullet' }],
-    ['blockquote', 'code-block'],
-    ['link', 'image', 'video'],
-    [{ align: [] }],
-    ['clean'],
-    [{ table: [] }],
-  ],
-};
-
-const quillFormats = [
-  'header', 'bold', 'italic', 'underline', 'strike',
-  'list', 'bullet', 'blockquote', 'code-block',
-  'link', 'image', 'video', 'align', 'table',
-];
-
 const AdminBlogPage: React.FC = () => {
   const [user, setUser] = useState(() => auth.currentUser);
   const [form, setForm] = useState(initialForm);
@@ -58,6 +40,7 @@ const AdminBlogPage: React.FC = () => {
   const [editLoading, setEditLoading] = useState(false);
   const [editError, setEditError] = useState('');
   const [editSuccess, setEditSuccess] = useState('');
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     const unsub = auth.onAuthStateChanged(u => setUser(u));
@@ -68,6 +51,35 @@ const AdminBlogPage: React.FC = () => {
     if (user) fetchPosts();
     // eslint-disable-next-line
   }, [user]);
+
+  // Inject dark mode CSS for CKEditor only when theme is dark
+  useEffect(() => {
+    const styleId = 'ckeditor-dark-mode-style';
+    let styleTag = document.getElementById(styleId);
+    if (theme === 'dark') {
+      if (!styleTag) {
+        styleTag = document.createElement('style');
+        styleTag.id = styleId;
+        styleTag.innerHTML = `
+          .ck.ck-editor__main > .ck-editor__editable { background: #232946 !important; color: #fff !important; }
+          .ck.ck-toolbar { background: #181c2a !important; color: #fff !important; }
+          .ck.ck-toolbar .ck-button .ck-button__label, .ck.ck-toolbar .ck-button .ck-icon { color: #fff !important; }
+          .ck.ck-dropdown .ck-dropdown__panel { background: #232946 !important; color: #fff !important; }
+          .ck.ck-list__item .ck-button__label { color: #fff !important; }
+          .ck.ck-editor__editable { caret-color: #fff !important; }
+        `;
+        document.head.appendChild(styleTag);
+      }
+    } else {
+      if (styleTag) {
+        styleTag.remove();
+      }
+    }
+    return () => {
+      const tag = document.getElementById(styleId);
+      if (tag) tag.remove();
+    };
+  }, [theme]);
 
   const fetchPosts = async () => {
     setFetchingPosts(true);
@@ -207,13 +219,20 @@ const AdminBlogPage: React.FC = () => {
             <div>
               <label className="block mb-2 font-medium text-secondary-700 dark:text-secondary-200">Content</label>
               <div className="bg-white dark:bg-secondary-800 rounded-lg min-h-[300px] text-lg text-black dark:text-white">
-                <ReactQuill
-                  theme="snow"
-                  value={form.content}
-                  onChange={val => setForm(f => ({ ...f, content: val }))}
-                  modules={quillModules}
-                  formats={quillFormats}
-                  className="bg-white dark:bg-secondary-800 text-black dark:text-white"
+                <CKEditor
+                  editor={ClassicEditor as any}
+                  data={form.content}
+                  config={{
+                    toolbar: [
+                      'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote',
+                      'insertTable', 'imageUpload', 'mediaEmbed', 'undo', 'redo', 'codeBlock'
+                    ],
+                    table: { contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ] },
+                  }}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    setForm(f => ({ ...f, content: data }));
+                  }}
                 />
               </div>
             </div>
@@ -266,13 +285,20 @@ const AdminBlogPage: React.FC = () => {
                   <div>
                     <label className="block mb-2 font-medium text-secondary-700 dark:text-secondary-200">Content</label>
                     <div className="bg-white dark:bg-secondary-800 rounded-lg min-h-[300px] text-lg text-black dark:text-white">
-                      <ReactQuill
-                        theme="snow"
-                        value={editForm.content}
-                        onChange={val => setEditForm(f => ({ ...f, content: val }))}
-                        modules={quillModules}
-                        formats={quillFormats}
-                        className="bg-white dark:bg-secondary-800 text-black dark:text-white"
+                      <CKEditor
+                        editor={ClassicEditor as any}
+                        data={editForm.content}
+                        config={{
+                          toolbar: [
+                            'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote',
+                            'insertTable', 'imageUpload', 'mediaEmbed', 'undo', 'redo', 'codeBlock'
+                          ],
+                          table: { contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ] },
+                        }}
+                        onChange={(event, editor) => {
+                          const data = editor.getData();
+                          setEditForm(f => ({ ...f, content: data }));
+                        }}
                       />
                     </div>
                   </div>
@@ -298,16 +324,6 @@ const AdminBlogPage: React.FC = () => {
           )}
         </>
       )}
-      <style>{`
-        .dark .ql-editor {
-          color: #fff;
-          background: #232946;
-        }
-        .ql-editor {
-          color: #111;
-          background: #fff;
-        }
-      `}</style>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Calendar, Clock, User, ArrowRight, BookOpen, Code, Brain, BarChart3, Globe, CheckCircle, AlertCircle } from 'lucide-react';
 import AnimatedNumber from './AnimatedNumber';
 import { web3formsService } from '../services/web3forms';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Micro-animation: Data Particle Burst
 const DataParticleBurst = ({ trigger }: { trigger: boolean }) => {
@@ -230,59 +230,59 @@ const Blog: React.FC = () => {
       title: 'Understanding Transformer Architecture in Deep Learning',
       excerpt: 'A comprehensive guide to transformer models, their architecture, and applications in natural language processing.',
       content: 'Transformers have revolutionized the field of natural language processing...',
-      author: 'Your Name',
+      author: 'Arvind Padala',
       date: '2024-01-15',
       readTime: '8 min read',
       category: 'deep-learning',
       tags: ['Transformers', 'NLP', 'Attention Mechanism', 'BERT'],
       image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=250&fit=crop',
       featured: true,
-      views: 1247,
-      likes: 89
+      views: 433,
+      likes: 69
     },
     {
       id: 2,
       title: 'Building Production-Ready ML Pipelines with MLOps',
       excerpt: 'Best practices for deploying machine learning models in production environments with proper monitoring and scaling.',
       content: 'MLOps bridges the gap between machine learning development and production deployment...',
-      author: 'Your Name',
+      author: 'Arvind Padala',
       date: '2024-01-10',
       readTime: '12 min read',
       category: 'mlops',
       tags: ['MLOps', 'Docker', 'Kubernetes', 'Monitoring'],
       image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=250&fit=crop',
       featured: false,
-      views: 892,
-      likes: 67
+      views: 153,
+      likes: 30
     },
     {
       id: 3,
       title: 'Computer Vision: From Traditional Methods to Deep Learning',
       excerpt: 'Evolution of computer vision techniques and how deep learning has transformed image recognition capabilities.',
       content: 'Computer vision has evolved significantly from traditional feature-based methods...',
-      author: 'Your Name',
+      author: 'Arvind Padala',
       date: '2024-01-05',
       readTime: '10 min read',
       category: 'computer-vision',
       tags: ['Computer Vision', 'CNN', 'Image Recognition', 'OpenCV'],
       image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400&h=250&fit=crop',
       featured: true,
-      views: 1567,
-      likes: 124
+      views: 121,
+      likes: 48
     },
     {
       id: 4,
       title: 'Time Series Forecasting with LSTM Networks',
       excerpt: 'Practical implementation of LSTM networks for time series prediction with real-world examples.',
       content: 'Time series forecasting is crucial for many business applications...',
-      author: 'Your Name',
+      author: 'Arvind Padala',
       date: '2023-12-28',
       readTime: '15 min read',
       category: 'deep-learning',
       tags: ['LSTM', 'Time Series', 'Forecasting', 'PyTorch'],
       image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=250&fit=crop',
       featured: false,
-      views: 734,
+      views: 159,
       likes: 45
     },
     {
@@ -290,30 +290,30 @@ const Blog: React.FC = () => {
       title: 'Data Engineering: Building Scalable Data Pipelines',
       excerpt: 'Designing and implementing robust data pipelines for processing large-scale datasets efficiently.',
       content: 'Data engineering is the foundation of any successful data science project...',
-      author: 'Your Name',
+      author: 'Arvind Padala',
       date: '2023-12-20',
       readTime: '14 min read',
       category: 'data-engineering',
       tags: ['Apache Spark', 'Airflow', 'Data Pipelines', 'ETL'],
       image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop',
       featured: false,
-      views: 623,
-      likes: 38
+      views: 85,
+      likes: 23
     },
     {
       id: 6,
       title: 'The Future of AI: Trends and Predictions for 2024',
       excerpt: 'Exploring emerging trends in artificial intelligence and their potential impact on various industries.',
       content: 'Artificial intelligence continues to evolve at an unprecedented pace...',
-      author: 'Your Name',
+      author: 'Arvind Padala',
       date: '2023-12-15',
       readTime: '11 min read',
       category: 'ai-trends',
       tags: ['AI Trends', 'Future Tech', 'Industry Impact', 'Innovation'],
       image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=250&fit=crop',
       featured: true,
-      views: 2134,
-      likes: 156
+      views: 78,
+      likes: 23
     }
   ];
 
@@ -334,6 +334,7 @@ const Blog: React.FC = () => {
     const cardRef = useRef<HTMLDivElement>(null);
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
+    const navigate = useNavigate();
 
     const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [15, -15]), {
       damping: 25,
@@ -379,6 +380,10 @@ const Blog: React.FC = () => {
           transformStyle: "preserve-3d",
         }}
         className="card group relative overflow-hidden cursor-pointer"
+        onClick={() => {
+          navigate('/blog');
+          setTimeout(() => window.scrollTo(0, 0), 0);
+        }}
       >
         {/* Featured Badge */}
         {post.featured && (
