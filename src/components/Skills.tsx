@@ -65,8 +65,8 @@ const Skills: React.FC = () => {
         className="mb-6"
       >
         <div className="flex justify-between items-center mb-2">
-          <span className="text-secondary-700 font-medium">{label}</span>
-          <span className="text-sm text-secondary-500"><AnimatedNumber value={percentage} />%</span>
+          <span className="text-secondary-700 font-medium dark:text-white">{label}</span>
+          <span className="text-sm text-secondary-500 dark:text-white"><AnimatedNumber value={percentage} />%</span>
         </div>
         <div className="relative h-3 bg-secondary-200 rounded-full overflow-hidden">
           {/* Neural Network Nodes */}
