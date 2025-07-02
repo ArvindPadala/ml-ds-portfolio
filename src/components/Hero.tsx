@@ -230,6 +230,12 @@ const Hero: React.FC = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 className="btn-primary px-8 py-4 text-lg font-semibold"
+                onClick={() => {
+                  const el = document.getElementById('projects');
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
               >
                 View Projects
               </motion.button>
