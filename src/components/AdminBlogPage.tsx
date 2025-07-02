@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { auth, googleProvider, db } from '../services/firebase';
+import { auth, googleProvider, db, storage } from '../services/firebase';
 import { signInWithPopup, signOut } from 'firebase/auth';
 import { collection, addDoc, Timestamp, getDocs, deleteDoc, doc, query, orderBy, updateDoc } from 'firebase/firestore';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ThemeContext } from '../App';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const initialForm = {
   title: '',
@@ -25,6 +26,22 @@ interface BlogPost {
   category: string;
   tags: string[];
   image?: string;
+}
+
+// Custom CKEditor upload adapter for Firebase Storage
+function CustomUploadAdapterPlugin(editor: any) {
+  editor.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {
+    return {
+      upload: async () => {
+        const file = await loader.file;
+        const storageRef = ref(storage, `blog-images/${Date.now()}-${file.name}`);
+        await uploadBytes(storageRef, file);
+        const url = await getDownloadURL(storageRef);
+        return { default: url };
+      },
+      abort: () => {}
+    };
+  };
 }
 
 const AdminBlogPage: React.FC = () => {
@@ -228,6 +245,7 @@ const AdminBlogPage: React.FC = () => {
                       'insertTable', 'imageUpload', 'mediaEmbed', 'undo', 'redo', 'codeBlock'
                     ],
                     table: { contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ] },
+                    extraPlugins: [CustomUploadAdapterPlugin],
                   }}
                   onChange={(event, editor) => {
                     const data = editor.getData();
@@ -294,6 +312,7 @@ const AdminBlogPage: React.FC = () => {
                             'insertTable', 'imageUpload', 'mediaEmbed', 'undo', 'redo', 'codeBlock'
                           ],
                           table: { contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ] },
+                          extraPlugins: [CustomUploadAdapterPlugin],
                         }}
                         onChange={(event, editor) => {
                           const data = editor.getData();
