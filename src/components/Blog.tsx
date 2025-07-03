@@ -536,6 +536,7 @@ const Blog: React.FC = () => {
         setInView(true);
       }
     };
+    
     window.addEventListener('scroll', handleScroll);
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
