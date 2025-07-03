@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BlogPage from './components/BlogPage';
 import AdminBlogPage from './components/AdminBlogPage';
 import HomePage from './components/HomePage';
+import BlogDetail from './components/BlogDetail';
 
 // Theme context for dark mode (dark mode is now default)
 export const ThemeContext = createContext({
@@ -56,6 +57,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/blog" element={<BlogPage />} />
+              <Route path="/blog/:id" element={<BlogDetail />} />
               <Route path="/admin" element={<AdminBlogPage />} />
             </Routes>
           </main>
