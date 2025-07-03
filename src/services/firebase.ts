@@ -7,7 +7,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyA7LFvA6_6-Nip1hcgf-FNa5wKQp0QJ4FA",
   authDomain: "arvind-portfolio-blog.firebaseapp.com",
   projectId: "arvind-portfolio-blog",
-  storageBucket: "arvind-portfolio-blog.firebasestorage.app",
+  storageBucket: "arvind-portfolio-blog.appspot.com",
   messagingSenderId: "332909086729",
   appId: "1:332909086729:web:4e8159a472d6352b2a90d8",
   measurementId: "G-RE0DM7QGP5"

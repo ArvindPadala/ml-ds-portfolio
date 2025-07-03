@@ -6,6 +6,7 @@ import BlogPage from './components/BlogPage';
 import AdminBlogPage from './components/AdminBlogPage';
 import HomePage from './components/HomePage';
 import BlogDetail from './components/BlogDetail';
+import AdminBlogEditor from './components/AdminBlogEditor';
 
 // Theme context for dark mode (dark mode is now default)
 export const ThemeContext = createContext({
@@ -59,6 +60,8 @@ function App() {
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:id" element={<BlogDetail />} />
               <Route path="/admin" element={<AdminBlogPage />} />
+              <Route path="/admin/new" element={<AdminBlogEditor mode="create" />} />
+              <Route path="/admin/edit/:id" element={<AdminBlogEditor mode="edit" />} />
             </Routes>
           </main>
           <Footer />
