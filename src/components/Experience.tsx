@@ -293,7 +293,15 @@ const Experience: React.FC = () => {
                       <div>
                         <h4 className="font-bold text-secondary-900">{cert.name}</h4>
                         <p className="text-primary-600">{cert.issuer}</p>
-                        <p className="text-sm text-secondary-600">Credential: {cert.credential}</p>
+                        {cert.credential_ID && (
+                          <p className="text-sm text-secondary-600">Credential ID: {cert.credential_ID}</p>
+                        )}
+                        {cert.Certification_number && (
+                          <p className="text-sm text-secondary-600">Certification #: {cert.Certification_number}</p>
+                        )}
+                        {cert.credential && (
+                          <p className="text-sm text-secondary-600">Credential: {cert.credential}</p>
+                        )}
                       </div>
                       <span className="text-sm text-secondary-500 bg-accent-100 px-3 py-1 rounded-full">
                         <AnimatedNumber value={parseInt(cert.date)} />
